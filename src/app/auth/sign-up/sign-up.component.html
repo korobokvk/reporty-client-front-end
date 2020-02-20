@@ -1,1 +1,59 @@
-<p>sign-up works!</p>
+<div class="sign-up_wrapper mat-typography">
+  <div class="sign-up_header">
+    <h1 class="mat-h2">Create your own reports</h1>
+  </div>
+  <div class="sign-up_form__wrapper">
+    <form class="sign-up_form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="sign-up-field">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+        <mat-error
+          *ngIf="
+            signUpForm.get('email').touched &&
+            signUpForm.get('email').errors?.required
+          "
+        >
+          Field is required
+        </mat-error>
+        <mat-error
+          *ngIf="
+            signUpForm.get('email').touched &&
+            signUpForm.get('email').errors?.email
+          "
+        >
+          Value must be an email
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="sign-up-field">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" />
+        <mat-error
+          *ngIf="
+            signUpForm.get('password').touched &&
+            signUpForm.get('password').errors?.required
+          "
+        >
+          Field is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="sign-up-field">
+        <mat-label>Repeat password</mat-label>
+        <input matInput type="password" formControlName="rePassword" />
+        <mat-error *ngIf="signUpForm.errors?.doNotMatch">
+          {{ signUpForm.errors?.doNotMatch }}
+        </mat-error>
+        <mat-error
+          *ngIf="
+            signUpForm.get('rePassword').touched &&
+            signUpForm.get('rePassword').errors?.required
+          "
+        >
+          Field is required
+        </mat-error>
+      </mat-form-field>
+      <button type="submit" [disabled]="!signUpForm.valid" mat-button>
+        Sign in
+      </button>
+    </form>
+  </div>
+</div>
