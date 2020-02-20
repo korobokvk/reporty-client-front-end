@@ -1,0 +1,26 @@
+.sign-in_form__wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+}
+
+.sign-in_form {
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-in_field {
+  width: 100%;
+}
+
+.sign_in_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 55px;
+  font-size: 22px;
+}
