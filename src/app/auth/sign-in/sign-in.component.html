@@ -7,10 +7,26 @@
       <mat-form-field class="sign-in_field">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" />
+        <mat-error
+          *ngIf="
+            signInForm.get('email').touched &&
+            signInForm.get('email').errors?.required
+          "
+        >
+          Field is required
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="sign-in_field">
         <mat-label>Password</mat-label>
         <input matInput type="password" formControlName="password" />
+        <mat-error
+          *ngIf="
+            signInForm.get('password').touched &&
+            signInForm.get('password').errors?.required
+          "
+        >
+          Field is required
+        </mat-error>
       </mat-form-field>
       <button type="submit" [disabled]="!signInForm.valid" mat-button>
         Sign in

@@ -36,7 +36,7 @@ export class SignUpComponent implements OnInit {
     );
   }
   private onSubmit() {
-    const { email, password, rePassword } = this.signUpForm.value;
-    //this.authService.signIn({ email, password });
+    const { email, password } = this.signUpForm.value;
+    this.authService.signUp({ email, password });
   }
 }
