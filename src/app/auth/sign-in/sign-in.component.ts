@@ -19,6 +19,8 @@ export class SignInComponent implements OnInit {
   private onSubmit() {
     console.log(this.signInForm.value);
     const { email, password } = this.signInForm.value;
-    this.authService.signIn({ email, password });
+    this.authService
+      .signIn({ email, password })
+      .subscribe(data => console.log(data));
   }
 }
