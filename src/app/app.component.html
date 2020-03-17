@@ -2,15 +2,17 @@
   <mat-toolbar-row>
     <span>Reporty</span>
     <span class="log_in_spacer"></span>
-    <button mat-button [matMenuTriggerFor]="menu">Log in</button>
-    <mat-menu #menu="matMenu">
-      <button class="log_in_button" mat-menu-item routerLink="auth/sign-in">
-        Sign in
-      </button>
-      <button class="log_in_button" mat-menu-item routerLink="auth/sign-up">
-        Sign up
-      </button>
-    </mat-menu>
+    <button class="log_in_button" mat-button routerLink="auth/sign-in">
+      Sign in
+    </button>
+    <button
+      class="log_in_button"
+      color="accent"
+      mat-button
+      routerLink="auth/sign-up"
+    >
+      Sign up
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>
 <div>

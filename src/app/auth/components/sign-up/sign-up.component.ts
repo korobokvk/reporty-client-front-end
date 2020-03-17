@@ -5,8 +5,8 @@ import {
   Validators,
   FormBuilder
 } from "@angular/forms";
-import { AuthService } from "../auth.service";
-import { compareField } from "../validators/validators";
+import { AuthService } from "../../auth.service";
+import { compareField } from "../../validators/validators";
 
 const errorMessage = "Passwords do not match";
 @Component({

@@ -28,7 +28,12 @@
           Field is required
         </mat-error>
       </mat-form-field>
-      <button type="submit" [disabled]="!signInForm.valid" mat-button>
+      <button
+        type="submit"
+        [disabled]="!signInForm.valid"
+        color="primary"
+        mat-raised-button
+      >
         Sign in
       </button>
     </form>
