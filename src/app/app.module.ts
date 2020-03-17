@@ -6,9 +6,10 @@ import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Interceptor } from "./interceptor";
+import { HeaderPanelComponent } from './header-panel.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HeaderPanelComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

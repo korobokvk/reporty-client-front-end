@@ -1,7 +1,8 @@
 import * as _ from "lodash";
+import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, Validators, FormBuilder } from "@angular/forms";
-import { AuthService } from "../../auth.service";
+import { AuthService } from "../../../shared/services/auth.service";
 import { compareField } from "../../validators/validators";
 import {
   REQUIRED_FIELD_ERROR,
@@ -18,7 +19,11 @@ export class SignUpComponent implements OnInit {
   private requiredMessage = REQUIRED_FIELD_ERROR;
   private emailValidationErrorName = EMAIL_VALIDATION_ERROR;
   private signUpForm: FormGroup;
-  constructor(private authService: AuthService, private fb: FormBuilder) {}
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.signUpForm = this.fb.group(
@@ -47,6 +52,8 @@ export class SignUpComponent implements OnInit {
 
   private onSubmit() {
     const { email, password } = this.signUpForm.value;
-    this.authService.signUp({ email, password });
+    this.authService
+      .signUp({ email, password })
+      .subscribe(() => this.router.navigate(["/setting"]));
   }
 }

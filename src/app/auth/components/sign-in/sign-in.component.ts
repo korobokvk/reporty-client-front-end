@@ -7,7 +7,7 @@ import {
   Validators,
   FormBuilder
 } from "@angular/forms";
-import { AuthService } from "../../auth.service";
+import { AuthService } from "../../../shared/services/auth.service";
 import {
   REQUIRED_FIELD_ERROR,
   EMAIL_VALIDATION_ERROR
