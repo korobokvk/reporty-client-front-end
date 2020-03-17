@@ -1,12 +1,12 @@
+import * as _ from "lodash";
 import { Component, OnInit } from "@angular/core";
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-  FormBuilder
-} from "@angular/forms";
+import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { AuthService } from "../../auth.service";
 import { compareField } from "../../validators/validators";
+import {
+  REQUIRED_FIELD_ERROR,
+  EMAIL_VALIDATION_ERROR
+} from "../../../shared/constants/error-messages";
 
 const errorMessage = "Passwords do not match";
 @Component({
@@ -15,7 +15,9 @@ const errorMessage = "Passwords do not match";
   styleUrls: ["./sign-up.component.scss"]
 })
 export class SignUpComponent implements OnInit {
-  signUpForm: FormGroup;
+  private requiredMessage = REQUIRED_FIELD_ERROR;
+  private emailValidationErrorName = EMAIL_VALIDATION_ERROR;
+  private signUpForm: FormGroup;
   constructor(private authService: AuthService, private fb: FormBuilder) {}
 
   ngOnInit() {
@@ -35,6 +37,14 @@ export class SignUpComponent implements OnInit {
       }
     );
   }
+
+  private validateByFieldName(formControlName, validateBy) {
+    const formControl = this.signUpForm.get(formControlName);
+    const formControlRequiredError = _.get(formControl, `errors.${validateBy}`);
+    const isFormTouched = _.get(formControl, "touched");
+    return isFormTouched && formControlRequiredError;
+  }
+
   private onSubmit() {
     const { email, password } = this.signUpForm.value;
     this.authService.signUp({ email, password });

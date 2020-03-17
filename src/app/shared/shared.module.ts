@@ -19,8 +19,8 @@ import { SnackBarComponent } from "./components/snack-bar/snack-bar.component";
     MatToolbarModule,
     MatInputModule,
     MatFormFieldModule,
-    SnackBarComponent,
-    MatSnackBarModule
+    MatSnackBarModule,
+    SnackBarComponent
   ]
 })
 export class SharedModule {}

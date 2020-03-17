@@ -7,25 +7,18 @@
       <mat-form-field class="sign-in_field">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" />
-        <mat-error
-          *ngIf="
-            signInForm.get('email').touched &&
-            signInForm.get('email').errors?.required
-          "
-        >
-          Field is required
+        <mat-error *ngIf="validateByFieldName('email', 'required')">
+          {{ requiredMessage }}
+        </mat-error>
+        <mat-error *ngIf="validateByFieldName('email', 'email')">
+          {{ emailValidationErrorName }}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="sign-in_field">
         <mat-label>Password</mat-label>
         <input matInput type="password" formControlName="password" />
-        <mat-error
-          *ngIf="
-            signInForm.get('password').touched &&
-            signInForm.get('password').errors?.required
-          "
-        >
-          Field is required
+        <mat-error *ngIf="validateByFieldName('password', 'required')">
+          {{ requiredMessage }}
         </mat-error>
       </mat-form-field>
       <button
