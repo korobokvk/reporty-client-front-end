@@ -1,7 +1,10 @@
 <div class="sign-up_wrapper mat-typography">
-  <div class="sign-up_header">
-    <h1 class="mat-h2">Create your own reports</h1>
-  </div>
+  <app-sub-header>
+    <div class="sign-up_header">
+      <h1 class="mat-h1">Create your own reports</h1>
+    </div>
+  </app-sub-header>
+
   <div class="sign-up_form__wrapper">
     <form class="sign-up_form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="sign-up-field">

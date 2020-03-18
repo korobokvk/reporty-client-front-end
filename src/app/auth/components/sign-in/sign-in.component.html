@@ -1,7 +1,9 @@
 <div class="sign-in_wrapper mat-typography">
-  <div class="sign-in_header">
-    <h1 class="mat-h2">Use email and password to sign in</h1>
-  </div>
+  <app-sub-header>
+    <div class="sign-in_header">
+      <h1 class="mat-h1">Use email and password to sign in</h1>
+    </div>
+  </app-sub-header>
   <div class="sign-in_form__wrapper">
     <form class="sign-in_form" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="sign-in_field">

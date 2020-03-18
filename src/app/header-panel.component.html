@@ -1,6 +1,6 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="navbar">
   <mat-toolbar-row>
-    <span>Reporty</span>
+    <span class="home-address" routerLink="/">Reporty</span>
     <span class="log_in_spacer"></span>
     <div *ngIf="!hideAuthButtonIfUserExist; else logOutButton">
       <button class="log_in_button" mat-button routerLink="auth/sign-in">

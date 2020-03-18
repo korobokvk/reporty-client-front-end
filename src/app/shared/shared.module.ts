@@ -7,20 +7,22 @@ import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { SnackBarComponent } from "./components/snack-bar/snack-bar.component";
+import { SubHeaderComponent } from "./components/sub-header/sub-header.component";
 
 @NgModule({
-  declarations: [SnackBarComponent],
+  declarations: [SnackBarComponent, SubHeaderComponent],
   entryComponents: [SnackBarComponent],
   imports: [CommonModule, MatSnackBarModule],
   exports: [
+    SnackBarComponent,
+    SubHeaderComponent,
     CommonModule,
     MatMenuModule,
     MatButtonModule,
     MatToolbarModule,
     MatInputModule,
     MatFormFieldModule,
-    MatSnackBarModule,
-    SnackBarComponent
+    MatSnackBarModule
   ]
 })
 export class SharedModule {}
