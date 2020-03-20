@@ -1,0 +1,29 @@
+<mat-toolbar color="primary" class="navbar">
+  <mat-toolbar-row>
+    <span class="home-address" routerLink="/">Reporty</span>
+    <span class="log_in_spacer"></span>
+    <div *ngIf="!hideAuthButtonIfUserExist; else logOutButton">
+      <button class="log_in_button" mat-button routerLink="auth/sign-in">
+        Sign in
+      </button>
+      <button
+        class="log_in_button"
+        color="accent"
+        mat-button
+        routerLink="auth/sign-up"
+      >
+        Sign up
+      </button>
+    </div>
+    <ng-template #logOutButton>
+      <button
+        class="log_in_button"
+        color="warn"
+        mat-raised-button
+        (click)="logOut()"
+      >
+        Log out
+      </button>
+    </ng-template>
+  </mat-toolbar-row>
+</mat-toolbar>

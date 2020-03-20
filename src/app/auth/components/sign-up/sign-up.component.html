@@ -1,0 +1,47 @@
+<div class="sign-up_wrapper mat-typography">
+  <app-sub-header>
+    <div class="sign-up_header">
+      <h1 class="mat-h1">Create your own reports</h1>
+    </div>
+  </app-sub-header>
+
+  <div class="sign-up_form__wrapper">
+    <form class="sign-up_form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="sign-up-field">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+        <mat-error *ngIf="validateByFieldName('email', 'required')">
+          {{ requiredMessage }}
+        </mat-error>
+        <mat-error *ngIf="validateByFieldName('email', 'email')">
+          {{ emailValidationErrorName }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="sign-up-field">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" />
+        <mat-error *ngIf="validateByFieldName('password', 'required')">
+          {{ requiredMessage }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="sign-up-field">
+        <mat-label>Repeat password</mat-label>
+        <input matInput type="password" formControlName="rePassword" />
+        <mat-error>
+          {{ signUpForm.errors?.doNotMatch }}
+        </mat-error>
+        <mat-error *ngIf="validateByFieldName('rePassword', 'required')">
+          {{ requiredMessage }}
+        </mat-error>
+      </mat-form-field>
+      <button
+        type="submit"
+        color="primary"
+        mat-raised-button
+        [disabled]="!signUpForm.valid"
+      >
+        Sign up
+      </button>
+    </form>
+  </div>
+</div>
