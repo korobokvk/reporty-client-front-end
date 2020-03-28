@@ -33,7 +33,7 @@ export class HeaderPanelComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  private logOut() {
+  public logOut() {
     this.authService.logOut();
   }
 
