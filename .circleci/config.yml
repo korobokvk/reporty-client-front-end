@@ -63,7 +63,7 @@ jobs:
           command: npm install
       - run:
           name: Building project
-          command: npm run build
+          command: npm run build --prod
       - persist_to_workspace:
           root: .
           paths:
