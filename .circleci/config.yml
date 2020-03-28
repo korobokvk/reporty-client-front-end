@@ -18,6 +18,9 @@ jobs:
           to: 's3://reportyfrontend'
 orbs:
   aws-cli: circleci/aws-cli@0.1
+  filters:
+      branches:
+        only: master
 
 # workflows:
 #   version: 2
