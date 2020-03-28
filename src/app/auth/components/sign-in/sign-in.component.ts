@@ -19,13 +19,13 @@ import {
   styleUrls: ["./sign-in.component.scss"]
 })
 export class SignInComponent implements OnInit {
-  private requiredMessage = REQUIRED_FIELD_ERROR;
-  private emailValidationErrorName = EMAIL_VALIDATION_ERROR;
-  private signInForm: FormGroup;
+  public requiredMessage = REQUIRED_FIELD_ERROR;
+  public emailValidationErrorName = EMAIL_VALIDATION_ERROR;
+  public signInForm: FormGroup;
   constructor(
-    private authService: AuthService,
-    private router: Router,
-    private fb: FormBuilder
+    public authService: AuthService,
+    public router: Router,
+    public fb: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -35,14 +35,14 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  private validateByFieldName(formControlName, validateBy) {
+  public validateByFieldName(formControlName, validateBy) {
     const formControl = this.signInForm.get(formControlName);
     const formControlRequiredError = _.get(formControl, `errors.${validateBy}`);
     const isFormTouched = _.get(formControl, "touched");
     return isFormTouched && formControlRequiredError;
   }
 
-  private onSubmit() {
+  public onSubmit() {
     const { email, password } = this.signInForm.value;
     this.authService
       .signIn({ email, password })

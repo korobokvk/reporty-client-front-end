@@ -16,13 +16,13 @@ const errorMessage = "Passwords do not match";
   styleUrls: ["./sign-up.component.scss"]
 })
 export class SignUpComponent implements OnInit {
-  private requiredMessage = REQUIRED_FIELD_ERROR;
-  private emailValidationErrorName = EMAIL_VALIDATION_ERROR;
-  private signUpForm: FormGroup;
+  public requiredMessage = REQUIRED_FIELD_ERROR;
+  public emailValidationErrorName = EMAIL_VALIDATION_ERROR;
+  public signUpForm: FormGroup;
   constructor(
-    private authService: AuthService,
-    private fb: FormBuilder,
-    private router: Router
+    public authService: AuthService,
+    public fb: FormBuilder,
+    public router: Router
   ) {}
 
   ngOnInit() {
@@ -43,14 +43,14 @@ export class SignUpComponent implements OnInit {
     );
   }
 
-  private validateByFieldName(formControlName, validateBy) {
+  public validateByFieldName(formControlName, validateBy) {
     const formControl = this.signUpForm.get(formControlName);
     const formControlRequiredError = _.get(formControl, `errors.${validateBy}`);
     const isFormTouched = _.get(formControl, "touched");
     return isFormTouched && formControlRequiredError;
   }
 
-  private onSubmit() {
+  public onSubmit() {
     const { email, password } = this.signUpForm.value;
     this.authService
       .signUp({ email, password })
