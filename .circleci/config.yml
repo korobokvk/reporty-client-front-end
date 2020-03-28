@@ -1,4 +1,8 @@
 version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@6.0.0
+
 jobs:
   build:
     docker:
@@ -16,23 +20,12 @@ jobs:
           from: dist/client-front-end
           overwrite: true
           to: 's3://reportyfrontend'
-orbs:
-  aws-cli: circleci/aws-cli@0.1
-  filters:
-      branches:
-        only: master
 
-# workflows:
-#   version: 2
-#   build-master:
-#     jobs:
-#       - build:
-#           filters:
-#             branches:
-#               only: master
-#       - publish-latest:
-#           requires:
-#             - build
-#           filters:
-#             branches:
-#               only: master
+workflows:
+  version: 2
+  build-master:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
