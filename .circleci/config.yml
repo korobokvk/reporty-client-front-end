@@ -49,6 +49,8 @@
 #               only: master
 
 version: 2.1
+orbs:
+  aws-cli: circleci/aws-cli@0.1.18
 jobs:
   build_project:
     working_directory: ~/circle-ci-s3-deploy
@@ -85,8 +87,6 @@ workflows:
           filters:
               branches:
                 only: master
-              tags:
-                only: /.*/
       - deploy_project:
           requires:
             - build_project
@@ -94,5 +94,3 @@ workflows:
           filters:
             branches:
               only: master
-            tags:
-              only: /.*/
