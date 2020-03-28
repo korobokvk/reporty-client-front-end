@@ -1,4 +1,6 @@
-export const ROOT_URL = "http://localhost:3030";
+import { environment } from "./environments/environment";
+
+export const ROOT_URL = environment.serviceUrl;
 export const AUTH_URL = `${ROOT_URL}/auth`;
 export const SIGN_IN_URL = `${AUTH_URL}/sign-in`;
 export const SIGN_UP_URL = `${AUTH_URL}/sign-up`;
