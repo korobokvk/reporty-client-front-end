@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  serviceUrl: "api-service"
+  serviceUrl: "8080"
 };
