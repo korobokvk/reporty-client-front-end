@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Interceptor } from "./interceptor";
 import { HeaderPanelComponent } from "./header-panel.component";
+import { AuthGuard } from "./shared/auth.guard";
 
 @NgModule({
   declarations: [AppComponent, HeaderPanelComponent],
@@ -18,7 +19,12 @@ import { HeaderPanelComponent } from "./header-panel.component";
     HttpClientModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true
+    },
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
