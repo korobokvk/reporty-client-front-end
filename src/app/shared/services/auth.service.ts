@@ -1,37 +1,37 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
+import { Observable, BehaviorSubject } from "rxjs";
+import { map } from "rxjs/operators";
 import {
   SIGN_IN_URL,
   SIGN_UP_URL,
-  CHECK_TOKEN_IF_VALID
+  CHECK_TOKEN_IF_VALID,
 } from "../../../config";
 import { Credentials } from "../../auth/interfaces/userCredentials";
-import { Observable, Subject } from "rxjs";
-import { map } from "rxjs/operators";
 import { StorageProviderService } from "./storage-provider.service";
 import { TOKEN_NAME } from "../constants/name-spaces";
 
+type token = { JWT: string };
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class AuthService {
-  private authSubject: Subject<boolean> = new Subject();
-  public authObserver = this.authSubject.asObservable();
+  private authSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private token: token;
+  public authObserver = () => this.authSubject.asObservable();
+
   constructor(
     private http: HttpClient,
-    private storage: StorageProviderService
+    private storage: StorageProviderService,
+    private router: Router
   ) {}
 
   public signIn(credentials: Credentials): Observable<void> {
     return this.http.post(SIGN_IN_URL, credentials).pipe(
-      map((token: { JWT: string }) => {
-        const { JWT } = token;
-        const storageData = {
-          name: TOKEN_NAME,
-          data: JWT
-        };
-        this.storage.seedToLocalStorage(storageData);
-        this.authSubject.next(true);
+      map((token: token) => {
+        this.token = token;
+        this.setTokenToStorage();
       })
     );
   }
@@ -39,26 +39,52 @@ export class AuthService {
   public signUp(credentials: Credentials): Observable<void> {
     return this.http.post(SIGN_UP_URL, credentials).pipe(
       map((token: { JWT: string }) => {
-        const { JWT } = token;
-        const storageData = {
-          name: TOKEN_NAME,
-          data: JWT
-        };
-        this.storage.seedToLocalStorage(storageData);
+        this.token = token;
+        this.setTokenToStorage();
       })
     );
   }
 
-  public checkIfTokenValid() {
-    return this.http
-      .get(CHECK_TOKEN_IF_VALID)
-      .pipe(map((data: boolean) => this.authSubject.next(data)));
+  public checkIfTokenValid(): Observable<boolean> {
+    return this.http.get(CHECK_TOKEN_IF_VALID).pipe(
+      map((data: boolean) => {
+        this.setAuthorized();
+        return data;
+      })
+    );
   }
 
-  public logOut() {
-    this.storage.removeItemFromStorage(TOKEN_NAME);
-    if (!this.storage.getItemFromStorage(TOKEN_NAME)) {
-      this.authSubject.next(false);
+  public logOut(): void {
+    this.redirectToAuth();
+    this.setUnAuthorized();
+  }
+
+  public setUnAuthorized(): void {
+    this.authSubject.next(false);
+    this.removeTokenFromStorage();
+  }
+
+  public setAuthorized(): void {
+    if (this.storage.getItemFromStorage(TOKEN_NAME)) {
+      this.authSubject.next(true);
     }
+  }
+
+  private setTokenToStorage() {
+    const { JWT } = this.token;
+    const storageData = {
+      name: TOKEN_NAME,
+      data: JWT,
+    };
+    this.storage.seedToLocalStorage(storageData);
+    this.setAuthorized();
+  }
+
+  private removeTokenFromStorage() {
+    this.storage.removeItemFromStorage(TOKEN_NAME);
+  }
+
+  private redirectToAuth() {
+    this.router.navigate(["auth"]);
   }
 }

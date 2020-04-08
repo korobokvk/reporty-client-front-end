@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { AuthGuard } from "./shared/auth.guard";
+import { AuthGuard } from "./shared/guards/auth.guard";
+import { SettingGuard } from "./shared/guards/setting.guard";
 
 const routes: Routes = [
   {
@@ -10,13 +11,19 @@ const routes: Routes = [
   },
   {
     path: "setting",
-    canActivate: [!AuthGuard],
+    canActivate: [SettingGuard],
     loadChildren: () =>
       import("./setting/setting.module").then(m => m.SettingModule)
   },
   {
+    path: "",
+    redirectTo: "setting",
+    pathMatch: "full"
+  },
+  {
     path: "**",
-    redirectTo: "auth"
+    redirectTo: "auth",
+    pathMatch: "full"
   }
 ];
 
