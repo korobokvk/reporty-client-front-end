@@ -10,4 +10,28 @@
       </h2>
     </div>
   </app-sub-header>
+
+  <div class="setting-form_wrapper">
+    <form
+      class="setting-form"
+      [formGroup]="settingForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <mat-form-field>
+        <mat-label>API link</mat-label>
+        <input matInput formControlName="link" />
+        <mat-error *ngIf="validateLink()">
+          {{ validateLink() }}
+        </mat-error>
+      </mat-form-field>
+      <button
+        type="submit"
+        color="primary"
+        [disabled]="!settingForm.valid"
+        mat-raised-button
+      >
+        Submit
+      </button>
+    </form>
+  </div>
 </div>

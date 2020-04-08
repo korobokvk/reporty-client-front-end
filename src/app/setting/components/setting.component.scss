@@ -14,3 +14,16 @@
     margin: 0 25px 25px 25px;
   }
 }
+.setting-form_wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+}
+
+.setting-form {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}

@@ -6,6 +6,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { ReactiveFormsModule } from "@angular/forms";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { SnackBarComponent } from "./components/snack-bar/snack-bar.component";
 import { SubHeaderComponent } from "./components/sub-header/sub-header.component";
@@ -14,7 +15,12 @@ import { SpinnerComponent } from "./components/spinner/spinner.component";
 @NgModule({
   declarations: [SnackBarComponent, SubHeaderComponent, SpinnerComponent],
   entryComponents: [SnackBarComponent],
-  imports: [CommonModule, MatSnackBarModule, MatProgressSpinnerModule],
+  imports: [
+    CommonModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    ReactiveFormsModule,
+  ],
   exports: [
     SnackBarComponent,
     SubHeaderComponent,
@@ -27,6 +33,7 @@ import { SpinnerComponent } from "./components/spinner/spinner.component";
     MatFormFieldModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    ReactiveFormsModule,
   ],
 })
 export class SharedModule {}
