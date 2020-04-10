@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
-import { Observable, BehaviorSubject } from "rxjs";
-import { map } from "rxjs/operators";
+import { Observable, BehaviorSubject, Subject, observable } from "rxjs";
+import { map, takeLast, take, catchError } from "rxjs/operators";
 import {
   SIGN_IN_URL,
   SIGN_UP_URL,
@@ -17,9 +17,10 @@ type token = { JWT: string };
   providedIn: "root",
 })
 export class AuthService {
-  private authSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private authSubject: Subject<boolean> = new Subject();
   private token: token;
   public authObserver = () => this.authSubject.asObservable();
+  //.pipe(takeLast(2));
 
   constructor(
     private http: HttpClient,
@@ -67,6 +68,8 @@ export class AuthService {
   public setAuthorized(): void {
     if (this.storage.getItemFromStorage(TOKEN_NAME)) {
       this.authSubject.next(true);
+    } else {
+      this.authSubject.next(false);
     }
   }
 

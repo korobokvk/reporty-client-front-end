@@ -1,36 +1,32 @@
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  UrlTree,
-} from "@angular/router";
-import { Observable } from "rxjs";
+import { CanLoad, Router, Route, ActivatedRoute } from "@angular/router";
+import { Observable, Subject, BehaviorSubject } from "rxjs";
+import { map, take, takeLast } from "rxjs/operators";
 import { AuthService } from "../services/auth.service";
 
 @Injectable({
   providedIn: "root",
 })
-export class SettingGuard implements CanActivate {
-  private isUserAuth: boolean;
+export class SettingGuard implements CanLoad {
+  private userAuthState: BehaviorSubject<boolean> = new BehaviorSubject(true);
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    this.authService.authObserver().subscribe((data) => {
-      this.isUserAuth = data;
-    });
+  canLoad(
+    route: Route,
+    segments
+  ): Observable<boolean> | Promise<boolean> | boolean {
+    return this.authService.authObserver().pipe(
+      take(1),
+      map((data) => {
+        return this.redirectToAuth(data);
+      })
+    );
+  }
 
-    if (!this.isUserAuth) {
-      return this.router.parseUrl("/auth");
+  private redirectToAuth(data) {
+    if (!data) {
+      this.router.navigate(["auth"]);
     }
-    return this.isUserAuth;
+    return data;
   }
 }

@@ -6,29 +6,29 @@ import { SettingGuard } from "./shared/guards/setting.guard";
 const routes: Routes = [
   {
     path: "auth",
-    canActivate: [AuthGuard],
-    loadChildren: () => import("./auth/auth.module").then(m => m.AuthModule)
+    canLoad: [AuthGuard],
+    loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule),
   },
   {
     path: "setting",
-    canActivate: [SettingGuard],
+    canLoad: [SettingGuard],
     loadChildren: () =>
-      import("./setting/setting.module").then(m => m.SettingModule)
+      import("./setting/setting.module").then((m) => m.SettingModule),
   },
   {
-    path: "",
+    path: " ",
     redirectTo: "setting",
-    pathMatch: "full"
+    pathMatch: "full",
   },
   {
     path: "**",
     redirectTo: "auth",
-    pathMatch: "full"
-  }
+    pathMatch: "full",
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}
